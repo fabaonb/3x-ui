@@ -7,7 +7,7 @@ on:
     branches: main
 env:
   fz: ${{ github.ref_name }}
-  token: ${{ secret.pat }}
+  token: ${{ secrets.pat }}
 permissions:
   contents: write
 concurrency:
