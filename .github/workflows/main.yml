@@ -21,10 +21,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.pat }}
-      - name: 设置 Git 远程为 pat 授权
+          token: ${{ secrets.PAT }}
+      - name: 设置 Git 远程为 PAT 授权
         run:  |
-          git remote set-url origin https://${{ github.actor }}:${{ secrets.pat }}@github.com/${{ github.repository }}.git
+          git remote set-url origin https://${{ github.actor }}:${{ secrets.PAT }}@github.com/${{ github.repository }}.git
       - name: 配置 Git 用户信息
         run:  |
           git config --global user.name "github-actions[bot]"
@@ -37,9 +37,9 @@ jobs:
           find .github/workflows/ -mindepth 1 ! -name "main.yml" -exec rm -rf {} +
       - name: 获取并强制同步上游仓库
         run:  |
-          RESPONSE=$(curl -s -H "Authorization: token ${{ secrets.pat }}" "https://api.github.com/repos/${{ github.repository }}") || true
+          RESPONSE=$(curl -s -H "Authorization: token ${{ secrets.PAT }}" "https://api.github.com/repos/${{ github.repository }}") || true
           UPSTREAM_REPO=$(echo "$RESPONSE" | jq -r '.parent.full_name') || true
-          git remote add upstream https://${{ secrets.pat }}@github.com/$UPSTREAM_REPO.git || true
+          git remote add upstream https://${{ secrets.PAT }}@github.com/$UPSTREAM_REPO.git || true
           git fetch upstream || true
           git reset --hard upstream/main || true
       - name: 还原 main.yml 到 workflows 目录
